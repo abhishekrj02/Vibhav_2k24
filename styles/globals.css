@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;1,700&family=Kanit:wght@500&display=swap");
+@layer base {
+  a {
+    @apply p-1;
+  }
+}
+
+body {
+  background-color: #000000;
+  overflow-x: hidden;
+}
+html {
+  scroll-behavior: smooth;
+}
+.scene {
+  position: absolute;
+  width: 100%;
+  transform: translateY(var(--translateY));
+  will-change: transform;
+}
+
+@font-face {
+  font-family: "Elianto-Regular";
+  src: local("Elianto-Regular"), url("/Assets/Fonts/Elianto-Regular.woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ARCADECLASSIC";
+  src: local("ARCADECLASSIC"), url("/Assets/Fonts/ARCADECLASSIC.woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Azonix";
+  src: local("Azonix"), url("/Assets/Fonts/Azonix.woff2");
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hero-Bold";
+  src: local("Hero-Bold"), url("/Assets/Fonts/Hero-Bold.woff2");
+  font-display: swap;
+}
+
+.dud {
+  color: #e9ec53;
+}
+.vibhav-name-svg {
+  margin: 0 auto;
+}
+
+.vibhav-text-copy {
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 6% 29%;
+  stroke-width: 5px;
+  stroke-dashoffset: 0%;
+  animation: stroke-offset 10s infinite linear;
+  filter: drop-shadow(1px 3px 20px rgb(180, 156, 24));
+}
+
+.vibhav-text-copy:nth-child(1) {
+  stroke: #ffce2b;
+  animation-delay: -2s;
+}
+
+.vibhav-text-copy:nth-child(2) {
+  stroke: #948551;
+  animation-delay: -4s;
+}
+
+.vibhav-text-copy:nth-child(3) {
+  stroke: #debe04;
+  animation-delay: -6s;
+}
+
+.vibhav-text-copy:nth-child(4) {
+  stroke: #fffadb;
+  animation-delay: -8s;
+}
+
+.vibhav-text-copy:nth-child(5) {
+  stroke: #ead4ab;
+  animation-delay: -10s;
+}
+
+@keyframes stroke-offset {
+  100% {
+    stroke-dashoffset: -35%;
+  }
+}
+
+:root {
+  --border-radius--menu-wrapper: 100px;
+  --border-radius--menu-link: 92px;
+}
+
+.menuLink {
+  @apply gap-x-2 max-md:gap-x-1 text-white cursor-pointer border flex-none justify-between items-center text-sm max-sm:text-xs font-normal leading-[114.286%] max-sm:leading-none no-underline transition-[background-color] duration-[0.2s] ease-[ease-in-out] flex py-4 max-sm:py-2 px-6 max-sm:px-3 rounded-[80px] border-solid border-[#222325] hover:bg-[#36353a];
+}
+
+.transition-custom {
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+.animateNav {
+  animation-name: slide-in;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translate3d(0px, 3vh, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    height: 0px;
+    opacity: 0;
+  }
+  30% {
+    transform: translate3d(0px, 2vh, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    height: 100px;
+    opacity: 0;
+  }
+  60% {
+    transform: translate3d(0px, 1vh, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    height: 140px;
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0px, 0vh, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    height: fit-content;
+    opacity: 1;
+  }
+}

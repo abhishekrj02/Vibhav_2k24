@@ -1,0 +1,29 @@
+.mainCard {
+  background: rgba(107, 81, 1, 0);
+  box-shadow: 0 8px 8px 2px rgba(145, 109, 1, 0.571);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+}
+.alumniCard {
+  background: rgba(107, 81, 1, 0);
+  box-shadow: 0 8px 8px 2px rgba(150, 150, 150, 0.571);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+}
+@media screen and (max-width: 480px) {
+  .mainCard {
+    box-shadow: 0 8px 8px 2px rgba(145, 109, 1, 0.571);
+  }
+}
+
+.mainPadding {
+  margin: 4rem;
+  padding-top: 6rem;
+  margin-bottom: 6rem;
+}
+.continingPosts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6rem;
+}
