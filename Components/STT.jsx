@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BiArrowFromBottom } from "react-icons/bi";
 import { ChevronDoubleUpIcon } from "@heroicons/react/24/outline";
 
 export const classNames = (...classes) => {

@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "./Footer";
 import STT from "../STT";
-import StickyBottomNavigation from "./Headernew";
+import Navigation from "./Navigation";
 export default function Layout({ children }) {
   return (
     <div>
-      <StickyBottomNavigation />
+      <Navigation />
       {children}
       <Footer />
       <STT />

@@ -1,21 +1,12 @@
 import React from "react";
 import { useState } from "react";
-
 import Link from "next/link";
 import { RiTeamLine } from "react-icons/ri";
-
 import { AiOutlineTeam } from "react-icons/ai";
-import { FaRobot } from "react-icons/fa";
-
-import { SiQiskit } from "react-icons/si";
-import { FiCpu } from "react-icons/fi";
 import { HiPresentationChartBar } from "react-icons/hi";
 import { MdWork } from "react-icons/md";
-
-import { IoThunderstormOutline } from "react-icons/io5";
-import { TbWaveSine } from "react-icons/tb";
-import { TbAugmentedReality } from "react-icons/tb";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import {
   AudioLines,
   BookMarked,
@@ -88,37 +79,42 @@ const ourteam = [
     icon: AiOutlineTeam,
   },
 ];
-// const Arrow = ({ ...props }) => {
-//   return (
-//     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" {...props}>
-//       <g id="Img">
-//         <path
-//           id="Vector"
-//           d="M2 5L6 8L10 5"
-//           stroke="white"
-//           strokeWidth="1.0625"
-//           strokeLinejoin="round"
-//         />
-//       </g>
-//     </svg>
-//   );
-// };
 
-const MyLink = ({ onClick }) => {
-  return <a onClick={onClick}>Contact</a>;
-};
-
-function StickyBottomNavigation() {
+export default function Navigation() {
   const [isMobile, setIsMobile] = useState(false);
   const [ProjectVisible, setProjectVisible] = useState(false);
   const [WorkVisible, setWorkVisible] = useState(false);
   const [TeamVisible, setTeamVisible] = useState(false);
   const navRef = useRef(null);
+  const router = useRouter();
+  const [activeRoute, setActiveRoute] = useState("");
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 800); 
+  }; //scrolltobottom
+
+  // useEffect(() => {
+  //   const handleClick = () => {
+  //     scrollToBottom();
+  //   };
+  //   document.querySelector(".menuLink").addEventListener("click", handleClick);
+  //   return () => {
+  //     document
+  //       .querySelector(".menuLink")
+  //       .removeEventListener("click", handleClick);
+  //   };
+  // }, []); //for contact navigation
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // Adjust the breakpoint as needed
+      setIsMobile(window.innerWidth < 1000); // Adjust the breakpoint as needed
     };
+    setActiveRoute(router.pathname);
 
     handleResize(); // Call handleResize initially to set the initial state
     window.addEventListener("resize", handleResize);
@@ -126,13 +122,13 @@ function StickyBottomNavigation() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [router.pathname]); //for resize
 
   const toggleProjectVisibility = () => {
     setProjectVisible(!ProjectVisible);
   };
 
-  const handlePorjectClick = (e) => {
+  const handleProjectClick = (e) => {
     e.preventDefault();
     if (ProjectVisible) {
       document.documentElement.style.setProperty(
@@ -156,6 +152,8 @@ function StickyBottomNavigation() {
     toggleProjectVisibility();
     setWorkVisible(false);
     setTeamVisible(false);
+
+    
   };
 
   const toggleWorkVisibility = () => {
@@ -218,35 +216,6 @@ function StickyBottomNavigation() {
     setWorkVisible(false);
   };
 
-  const handleScroll = () => {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-  };
-
-  const handleLinkClick = (e) => {
-    e.preventDefault(); // Prevent default link behavior
-    handleScroll();
-  };
-  // const navRef = useRef(null);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (navRef.current && !navRef.current.contains(event.target)) {
-  //       setProjectVisible(false);
-  //       setWorkVisible(false);
-  //       setTeamVisible(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
@@ -275,7 +244,7 @@ function StickyBottomNavigation() {
       document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [ProjectVisible, WorkVisible, TeamVisible]);
+  }, [ProjectVisible, WorkVisible, TeamVisible]); //navigation of submenus
 
   return isMobile ? (
     <nav
@@ -284,9 +253,6 @@ function StickyBottomNavigation() {
     >
       {ProjectVisible && (
         <div className="max-w-full gap-x-6 gap-y-6 bg-[#1a1b1e] flex-col flex overflow-hidden p-0 rounded-[23px] animateNav transition-custom">
-          {/* <div className="text-[#313235] text-[10px] leading-[120%] mt-6 mx-6 pb-[13px] border-b-[#222325] border-b border-solid">
-            LEARN
-          </div> */}
           <div className="gap-x-4 gap-y-4 grid-rows-[auto] grid-cols-[1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6 ">
             {projects.map((item) => (
               <Link
@@ -303,9 +269,6 @@ function StickyBottomNavigation() {
       )}
       {WorkVisible && (
         <div className="max-w-full gap-x-6 gap-y-6 bg-[#1a1b1e] flex-col flex overflow-hidden p-0 rounded-[23px] animateNav transition-custom">
-          {/* <div className="text-[#313235] text-[10px] leading-[120%] mt-6 mx-6 pb-[13px] border-b-[#222325] border-b border-solid">
-            LEARN
-          </div> */}
           <div className="gap-x-4 gap-y-4 grid-rows-[auto] grid-cols-[1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6">
             {ourwork.map((item) => (
               <Link
@@ -322,9 +285,6 @@ function StickyBottomNavigation() {
       )}
       {TeamVisible && (
         <div className="max-w-full gap-x-6 gap-y-6 bg-[#1a1b1e] flex-col flex overflow-hidden p-0 rounded-[23px] animateNav transition-custom">
-          {/* <div className="text-[#313235] text-[10px] leading-[120%] mt-6 mx-6 pb-[13px] border-b-[#222325] border-b border-solid">
-            LEARN
-          </div> */}
           <div className="gap-x-4 gap-y-4 grid-rows-[auto] grid-cols-[1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6">
             {ourteam.map((item) => (
               <Link
@@ -340,55 +300,69 @@ function StickyBottomNavigation() {
         </div>
       )}
       <div className="w-full gap-x-2 max-md:gap-1 gap-y-2 rounded-[var(--border-radius--menu-link)] bg-[#1a1b1e] justify-between flex overflow-auto p-3 max-sm:p-2 transition-custom">
-        <button className="menuLink" onClick={handlePorjectClick}>
+        <p
+          onClick={(e) => {
+            handleProjectClick(e);
+          }}
+          className={`menuLink ${activeRoute === "/Projects/[id]" ? "active" : ""}`}
+        >
           <div>
             <BookMarked className="w-7 h-7 text-gray-200 mx-auto" />
             <p>Projects</p>
           </div>
-        </button>
-        <p className="menuLink" onClick={handleWorkClick}>
+        </p>
+
+        <p
+          onClick={(e) => {
+            handleWorkClick(e);
+          }}
+          className={`menuLink ${activeRoute === "/OurWork/[id]" ? "active" : ""}`}
+        >
           <div>
             <History className="w-7 h-7 text-gray-200 mx-auto" />
-            <p>Work</p>
+            <p> Work</p>
           </div>
         </p>
 
-        <Link href="/" className="menuLink">
+        <Link
+          href="/"
+          className={`menuLink ${location.pathname === "/" ? "active" : ""}`}
+        >
           <div>
-            <Home className="w-7 h-7 text-gray-200 mx-auto" />
+            <Home className="w-7 h-7 text-gray-300 mx-auto" />
             <p>Home</p>
           </div>
         </Link>
 
-        <p className="menuLink" onClick={handleTeamClick}>
+        <p
+          onClick={(e) => {
+            handleTeamClick(e);
+          }}
+          className={`menuLink ${activeRoute === "/OurTeam/[id]" ? "active" : ""}`}
+        >
           <div>
             <User className="w-7 h-7 text-gray-200 mx-auto" />
             <p>Team</p>
           </div>
         </p>
 
-        {/* <MyLink onClick={handleLinkClick} /> */}
-        <a
-          onClick={handleLinkClick}
-          className="menuLink bg-[#36353a] hover:text-[#111] hover:bg-[#fff]"
-        >
-          <div>
-            <Mail className="w-7 h-7 text-gray-200 mx-auto" />
-            <p>Contact</p>
+        <Link href="/" scroll={false}>
+          <div onClick={scrollToBottom} className="menuLink">
+            <div>
+              <Mail className="w-7 h-7 text-gray-200 mx-auto " />
+              <p>Contact</p>
+            </div>
           </div>
-        </a>
+        </Link>
       </div>
-    </nav>
+    </nav> //for mobile view
   ) : (
     <nav
       ref={navRef}
-      className=" fixed bottom-8 left-0 right-0 z-50 mx-auto max-w-screen-xl gap-x-2 gap-y-2  rounded-[var(--border-radius--menu-wrapper)] bg-[rgba(26,27,30,0.4)] border flex-col flex  p-[9px] max-sm:p-[5px] border-solid border-[#222325]  transition-custom "
+      className=" fixed bottom-8 left-0 right-0 z-50 mx-auto max-w-screen-xl gap-x-2 gap-y-2  rounded-[var(--border-radius--menu-wrapper)] bg-[rgba(26,27,30,0.4)] border flex-col flex  p-[9px] max-sm:p-[5px] border-solid border-[#333333]  transition-custom "
     >
       {ProjectVisible && (
         <div className="max-w-full gap-x-6 gap-y-6 bg-[#1a1b1e] flex-col flex overflow-hidden p-0 rounded-[23px] animateNav transition-custom">
-          {/* <div className="text-[#313235] text-[10px] leading-[120%] mt-6 mx-6 pb-[13px] border-b-[#222325] border-b border-solid">
-            LEARN
-          </div> */}
           <div className="gap-x-4 gap-y-4 grid-rows-[auto_auto] grid-cols-[1fr_1fr_1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6 ">
             {projects.map((item) => (
               <Link
@@ -405,10 +379,7 @@ function StickyBottomNavigation() {
       )}
       {WorkVisible && (
         <div className="max-w-full gap-x-6 gap-y-6 bg-[#1a1b1e] flex-col flex overflow-hidden p-0 rounded-[23px] animateNav transition-custom">
-          {/* <div className="text-[#313235] text-[10px] leading-[120%] mt-6 mx-6 pb-[13px] border-b-[#222325] border-b border-solid">
-            LEARN
-          </div> */}
-          <div className="gap-x-4 gap-y-4 grid-rows-[auto] grid-cols-[1fr_1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6">
+          <div className="grid-rows-[auto] grid-cols-[1fr_1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6">
             {ourwork.map((item) => (
               <Link
                 key={item.name}
@@ -424,9 +395,6 @@ function StickyBottomNavigation() {
       )}
       {TeamVisible && (
         <div className="max-w-full gap-x-6 gap-y-6 bg-[#1a1b1e] flex-col flex overflow-hidden p-0 rounded-[23px] animateNav transition-custom">
-          {/* <div className="text-[#313235] text-[10px] leading-[120%] mt-6 mx-6 pb-[13px] border-b-[#222325] border-b border-solid">
-            LEARN
-          </div> */}
           <div className="gap-x-4 gap-y-4 grid-rows-[auto] grid-cols-[1fr_1fr] auto-cols-[1fr] justify-items-center grid my-6 mx-6">
             {ourteam.map((item) => (
               <Link
@@ -442,32 +410,49 @@ function StickyBottomNavigation() {
         </div>
       )}
       <div className="w-full gap-x-2 max-md:gap-1 gap-y-2 rounded-[var(--border-radius--menu-link)] bg-[#1a1b1e] justify-between flex overflow-auto p-3 max-sm:p-2 transition-custom">
-        <button className="menuLink" onClick={handlePorjectClick}>
+        <p
+          onClick={(e) => {
+            handleProjectClick(e);
+          }}
+          className={`menuLink ${activeRoute === "/Projects/[id]" ? "active" : ""}`}
+        >
           Projects
-        </button>
-        <p className="menuLink" onClick={handleWorkClick}>
+        </p>
+        <p
+          onClick={(e) => {
+            handleWorkClick(e);
+          }}
+          className={`menuLink ${activeRoute === "/OurWork/[id]" ? "active" : ""}`}
+        >
           Work
         </p>
 
-        <Link href="/" className="menuLink">
+        <Link
+          href="/"
+          className={`menuLink ${location.pathname === "/" ? "active" : ""}`}
+        >
           <Home className="w-5 h-5 text-gray-300" />
           Home
         </Link>
 
-        <p className="menuLink" onClick={handleTeamClick}>
+        <p
+          onClick={(e) => {
+            handleTeamClick(e);
+            
+          }}
+          className={`menuLink ${activeRoute === "/OurTeam/[id]" ? "active" : ""}`}
+        >
           Team
         </p>
 
-        {/* <MyLink onClick={handleLinkClick} /> */}
-        <a
-          onClick={handleLinkClick}
-          className="menuLink bg-[#36353a] hover:text-[#111] hover:bg-[#fff]"
-        >
-          Contact
-        </a>
+        <Link href="/" scroll={false}>
+          <p className="menuLink" onClick={scrollToBottom}>
+            Contact
+          </p>
+        </Link>
       </div>
-    </nav>
+    </nav> //navigation for desktop view
   );
 }
 
-export default StickyBottomNavigation;
+

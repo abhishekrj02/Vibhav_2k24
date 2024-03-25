@@ -1,6 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import Contact from "../../Components/Contactnew";
 import Projects from "../../Components/Projects";
 import Layout from "../../Components/UI/Layout";
 import { useRouter } from "next/router";
@@ -18,11 +16,8 @@ export default function Home() {
       <main>
         <Layout>
           <Projects id={id} />
-          <Contact />
-
         </Layout>
       </main>
-      
     </>
   );
 }

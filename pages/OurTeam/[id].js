@@ -1,16 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../../Components/UI/Layout";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import CurrentTeamPhotos from "../../data/team.json";
-import TeamCard from "../../Components/UI/cards/TeamCard";
 import AluminiTeamPhotos from "../../data/alumni.json";
-import Contact from "../../Components/Contactnew";
 import TeamCardnew from "../../Components/UI/cards/TeamCardnew";
-import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -94,12 +89,8 @@ export default function Home() {
               partialVisbile
             >
               {CurrentTeamPhotos["Super Final Year"].map((post, ind) => {
-                return (
-                  // <TeamCard cardType="team" key={ind} data={post} />;
-                  <TeamCardnew cardType="team" key={ind} data={post} />
-                );
+                return <TeamCardnew cardType="team" key={ind} data={post} />;
               })}
-                
             </Carousel>
             <h1 className="text-[#a18240] text-3xl mt-12 ml-24 font-[Hero-Bold]">
               FINAL YEAR MEMBERS
@@ -202,8 +193,6 @@ export default function Home() {
           </div>
         )}
       </div>
-
-      <Contact />
     </Layout>
   );
 }

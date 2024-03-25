@@ -129,7 +129,7 @@ export default function Contact({}) {
           </form>
         </div>
 
-        <div
+        {/* <div
           // data-aos="fade-left"
           className="md:w-1/2 md:bg-transparent md:mr-8 bg-[#1a1a1d] rounded-xl z-10 bg-opacity-50 text-white  sm:pl-3 pb-12  md:pl-24 justify-center items-center max-w-screen-md py-4 lg:py-16"
         >
@@ -159,7 +159,8 @@ export default function Contact({}) {
               vibhav.nimbus@nith.ac.in
             </a>
           </div>
-        </div>
+        </div> */} 
+        {/* extra part */}
       </div>
     </div>
   );
